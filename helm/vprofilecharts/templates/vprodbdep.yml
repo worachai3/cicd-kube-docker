@@ -26,7 +26,3 @@ spec:
              secretKeyRef:
                name: app-secret
                key: db-pass
-#        env:
-#         - name: MYSQL_ROOT_PASSWORD
-#           value: "vprodbpass"
-
