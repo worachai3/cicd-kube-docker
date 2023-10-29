@@ -8,11 +8,10 @@ spec:
   rules:
   - http:
       paths:
-      - host: a167e2bde3e3f4761b4511170e61af85-b2012489b3b00ca3.elb.ap-southeast-1.amazonaws.com
-        path: /
+      - path: /
         pathType: Prefix
         backend:
           service:
-            name: vproapp-service
+            name: vproapp
             port:
               number: 8080
