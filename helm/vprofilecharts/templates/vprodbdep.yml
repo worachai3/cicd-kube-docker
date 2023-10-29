@@ -10,7 +10,7 @@ spec:
       app: vprodb
   replicas: 1
   template:
-    # metadata:
+    metadata:
       # annotations:
       #   vault.hashicorp.com/agent-inject: "true"
       #   vault.hashicorp.com/role: "vprofile"
