@@ -29,7 +29,7 @@ spec:
         command:
           ['sh', '-c']
         args:
-          ['source /vault/secrets/database-config && <entrypoint script>']
+          ['source /vault/secrets/database/config && <entrypoint script>']
         ports:
         - name: vprodb-port
           containerPort: 3306
