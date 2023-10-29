@@ -15,6 +15,10 @@ spec:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/role: "vprofile"
         vault.hashicorp.com/agent-inject-secret-database-config: "internal/data/database/config"
+        vault.hashicorp.com/agent-inject-template-database-config: |
+          {{- with secret "internal/data/database/config" -}}
+            export MYSQL_ROOT_PASSWORD="{{ .Data.data.password }}"
+          {{- end }}
       labels:
         app: vprodb
     spec:
@@ -22,12 +26,10 @@ spec:
       containers:
       - name: vprodb
         image: vprofile/vprofiledb
+        command:
+          ['sh', '-c']
+        args:
+          ['source /vault/secrets/database-config && <entrypoint script>']
         ports:
         - name: vprodb-port
           containerPort: 3306
-        env: 
-         - name: MYSQL_ROOT_PASSWORD
-           valueFrom:
-             secretKeyRef:
-               name: app-secret
-               key: db-pass
