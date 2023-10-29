@@ -65,5 +65,6 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 ## Clean up steps
 helm delete vprofile-stack --namespace prod
+helm delete vault --namespace vault
 kops delete cluster --name=wrccluster.k8s.local --state=s3://vprofile-kops-state-wrc --yes
 kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/aws/deploy.yaml

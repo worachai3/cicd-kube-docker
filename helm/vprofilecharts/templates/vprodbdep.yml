@@ -10,11 +10,11 @@ spec:
       app: vprodb
   replicas: 1
   template:
-    metadata:
-      annotations:
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/role: "vprofile"
-        vault.hashicorp.com/agent-inject-secret-database-config: "internal/data/database/config"
+    # metadata:
+      # annotations:
+      #   vault.hashicorp.com/agent-inject: "true"
+      #   vault.hashicorp.com/role: "vprofile"
+      #   vault.hashicorp.com/agent-inject-secret-database-config: "internal/data/database/config"
       labels:
         app: vprodb
     spec:
