@@ -29,7 +29,7 @@ spec:
         command:
           ['sh', '-c']
         args:
-          ['. /vault/secrets/database-config']
+          ['. ./vault/secrets/database-config']
         ports:
         - name: vprodb-port
           containerPort: 3306
