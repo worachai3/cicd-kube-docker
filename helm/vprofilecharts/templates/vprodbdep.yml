@@ -11,14 +11,9 @@ spec:
   replicas: 1
   template:
     metadata:
-      # annotations:
-      #   vault.hashicorp.com/agent-inject: "true"
-      #   vault.hashicorp.com/role: "vprofile"
-      #   vault.hashicorp.com/agent-inject-secret-database-config: "internal/data/database/config"
       labels:
         app: vprodb
     spec:
-      serviceAccountName: vprosa
       containers:
       - name: vprodb
         image: vprofile/vprofiledb
@@ -27,7 +22,7 @@ spec:
           containerPort: 3306
         env: 
          - name: MYSQL_ROOT_PASSWORD
-           vauleFrom:
+           valueFrom:
              secretKeyRef:
                name: app-secret
                key: db-pass
