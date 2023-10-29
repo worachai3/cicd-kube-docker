@@ -27,18 +27,10 @@ spec:
       containers:
       - name: vpromq01
         image: rabbitmq
-        # command:
-        #   ['sh', '-c']
-        # args:
-        #   ['source /vault/secrets/rmq/config']
+        command:
+          ['sh', '-c']
+        args:
+          ['source /vault/secrets/rmq-config']
         ports:
         - name: vpromq01-port
           containerPort: 15672
-        env: 
-         - name: RABBITMQ_DEFAULT_PASS
-           valueFrom:
-             secretKeyRef:
-               name: app-secret
-               key: rmq-pass
-         - name: RABBITMQ_DEFAULT_USER
-           value: "guest"
