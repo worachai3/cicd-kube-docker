@@ -9,11 +9,16 @@ spec:
     matchLabels:
       app: vprodb
   replicas: 1
-  template:
+  template: 
     metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "vprofile"
+        vault.hashicorp.com/agent-inject-secret-database-config: "internal/data/database/config"
       labels:
         app: vprodb
     spec:
+      serviceAccountName: vprosa
       containers:
       - name: vprodb
         image: vprofile/vprofiledb
