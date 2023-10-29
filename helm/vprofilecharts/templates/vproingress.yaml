@@ -8,7 +8,8 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
+      - host: a167e2bde3e3f4761b4511170e61af85-b2012489b3b00ca3.elb.ap-southeast-1.amazonaws.com
+        path: /
         pathType: Prefix
         backend:
           service:
