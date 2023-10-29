@@ -26,10 +26,16 @@ spec:
       containers:
       - name: vprodb
         image: vprofile/vprofiledb
-        command:
-          ['sh', '-c']
-        args:
-          ['source /vault/secrets/database/config']
+        # command:
+        #   ['sh', '-c']
+        # args:
+        #   ['source /vault/secrets/database/config']
         ports:
         - name: vprodb-port
           containerPort: 3306
+        env: 
+         - name: MYSQL_ROOT_PASSWORD
+           valueFrom:
+             secretKeyRef:
+               name: app-secret
+               key: db-pass
