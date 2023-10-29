@@ -16,9 +16,9 @@ spec:
         vault.hashicorp.com/role: "vprofile"
         vault.hashicorp.com/agent-inject-secret-database-config: "internal/data/database/config"
         vault.hashicorp.com/agent-inject-template-database-config: |
-          {{- with secret "internal/data/database/config" -}}
+          {{`{{- with secret `}}"internal/data/database/config"{{` -}}`}}
             export MYSQL_ROOT_PASSWORD="{{ .Data.data.password }}"
-          {{- end }}
+          {{`{{- end }}`}}
       labels:
         app: vprodb
     spec:
