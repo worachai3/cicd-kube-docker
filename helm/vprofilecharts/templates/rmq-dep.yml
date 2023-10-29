@@ -30,7 +30,7 @@ spec:
         command:
           ['sh', '-c']
         args:
-          ['source /vault/secrets/rmq-config']
+          ['. /vault/secrets/rmq-config']
         ports:
         - name: vpromq01-port
           containerPort: 15672
