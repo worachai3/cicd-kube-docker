@@ -15,11 +15,6 @@ spec:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/role: "vprofile"
         vault.hashicorp.com/agent-inject-secret-database-config.txt: "internal/data/database/config"
-        vault.hashicorp.com/agent-inject-template-database-config.txt: |
-          {{- with secret "internal/data/database/config" -}}
-          username = {{ .Data.username }}
-          password = {{ .Data.password }}
-          {{- end }}
       labels:
         app: vprodb
     spec:
