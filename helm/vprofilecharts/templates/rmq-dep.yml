@@ -14,7 +14,7 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/role: "vprofile"
-        vault.hashicorp.com/agent-inject-secret-rmq-config.txt: "internal/data/rmq/config"
+        vault.hashicorp.com/agent-inject-secret-rmq-config: "internal/data/rmq/config"
       labels:
         app: vpromq01
     spec:

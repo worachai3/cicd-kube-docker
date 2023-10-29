@@ -14,7 +14,7 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/role: "vprofile"
-        vault.hashicorp.com/agent-inject-secret-database-config.txt: "internal/data/database/config"
+        vault.hashicorp.com/agent-inject-secret-database-config: "internal/data/database/config"
       labels:
         app: vprodb
     spec:
@@ -27,4 +27,7 @@ spec:
           containerPort: 3306
         env: 
          - name: MYSQL_ROOT_PASSWORD
-           vaule: {{ .Data.password }}
+           vauleFrom:
+             secretKeyRef:
+               name: app-secret
+               key: db-pass
