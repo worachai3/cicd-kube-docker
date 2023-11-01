@@ -15,7 +15,7 @@ spec:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/role: "vprofile"
         vault.hashicorp.com/agent-inject-secret-database-config.sh: "internal/data/database/config"
-        vault.hashicorp.com/agent-inject-template-database-config: |
+        vault.hashicorp.com/agent-inject-template-database-config.sh: |
           {{`{{- with secret `}}"internal/data/database/config"{{` -}}`}}
             #!/bin/sh
             export MYSQL_ROOT_PASSWORD="{{`{{ .Data.data.password }}`}}"
@@ -24,10 +24,6 @@ spec:
         app: vprodb
     spec:
       serviceAccountName: vprosa
-      # initContainers:
-      #   - name: init
-      #     image: alpine
-      #     command: ["/bin/sh", "-c", "chmod +x /vault/secrets/database-config"]
       containers:
       - name: vprodb
         image: {{.Values.dbimage}}
