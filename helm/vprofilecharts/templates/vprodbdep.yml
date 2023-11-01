@@ -23,10 +23,10 @@ spec:
         app: vprodb
     spec:
       serviceAccountName: vprosa
-      initContainers:
-        - name: init
-          image: alpine
-          command: ["/bin/sh", "-c", "chmod +x /vault/secrets/database-config"]
+      # initContainers:
+      #   - name: init
+      #     image: alpine
+      #     command: ["/bin/sh", "-c", "chmod +x /vault/secrets/database-config"]
       containers:
       - name: vprodb
         image: {{.Values.dbimage}}

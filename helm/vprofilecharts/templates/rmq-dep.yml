@@ -24,10 +24,10 @@ spec:
         app: vpromq01
     spec:
       serviceAccountName: vprosa
-      initContainers:
-      - name: init
-        image: alpine
-        command: ["/bin/sh", "-c", "chmod +x /vault/secrets/rmq-config"]
+      # initContainers:
+      # - name: init
+      #   image: alpine
+      #   command: ["/bin/sh", "-c", "chmod +x /vault/secrets/rmq-config"]
       containers:
       - name: vpromq01
         image: {{.Values.rmqimage}}
