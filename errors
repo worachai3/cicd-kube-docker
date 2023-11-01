@@ -1,0 +1,182 @@
+ubuntu@ip-172-31-37-240:~$ kubectl get pod --namespace prod
+NAME                        READY   STATUS             RESTARTS      AGE
+vproapp-9b4cb95c9-wjnk4     1/1     Running            0             72s
+vprodb-5ffcfd4885-4xwhf     1/2     CrashLoopBackOff   7 (28s ago)   11m
+vprodb-7fdcdb67c-f6vzx      1/2     CrashLoopBackOff   2 (19s ago)   72s
+vpromc-5c65464866-9md4x     1/1     Running            0             11m
+vpromq01-687d66b65c-pcls7   1/2     CrashLoopBackOff   7 (16s ago)   11m
+vpromq01-86b8b565b8-cpkjz   1/2     CrashLoopBackOff   2 (21s ago)   72s
+
+ubuntu@ip-172-31-37-240:~$ kubectl describe pod vprodb-7fdcdb67c-f6vzx --namespace prod
+Name:             vprodb-7fdcdb67c-f6vzx
+Namespace:        prod
+Priority:         0
+Service Account:  vprosa
+Node:             i-0100bf753cc12b472/172.20.42.20
+Start Time:       Wed, 01 Nov 2023 21:00:54 +0000
+Labels:           app=vprodb
+                  pod-template-hash=7fdcdb67c
+Annotations:      vault.hashicorp.com/agent-inject: true
+                  vault.hashicorp.com/agent-inject-secret-database-config.sh: internal/data/database/config
+                  vault.hashicorp.com/agent-inject-status: injected
+                  vault.hashicorp.com/agent-inject-template-database-config.sh:
+                    {{- with secret "internal/data/database/config" -}}
+                      #!/bin/sh
+                      export MYSQL_ROOT_PASSWORD="{{ .Data.data.password }}"
+                    {{- end }}
+                  vault.hashicorp.com/role: vprofile
+Status:           Running
+IP:               100.96.2.248
+IPs:
+  IP:           100.96.2.248
+Controlled By:  ReplicaSet/vprodb-7fdcdb67c
+Init Containers:
+  vault-agent-init:
+    Container ID:  containerd://a14d162cddf0bfa9c730add6a3e94c42599be776f3a57b59b0756ff1bd52fd1b
+    Image:         hashicorp/vault:1.15.1
+    Image ID:      docker.io/hashicorp/vault@sha256:6a96634beeda3f989a4d9d85a951fe835fe8504e4dae5b46610f7c4104e8388b
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/sh
+      -ec
+    Args:
+      echo ${VAULT_CONFIG?} | base64 -d > /home/vault/config.json && vault agent -config=/home/vault/config.json
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 01 Nov 2023 21:01:11 +0000
+      Finished:     Wed, 01 Nov 2023 21:01:11 +0000
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:     250m
+      memory:  64Mi
+    Environment:
+      NAMESPACE:         prod (v1:metadata.namespace)
+      HOST_IP:            (v1:status.hostIP)
+      POD_IP:             (v1:status.podIP)
+      VAULT_LOG_LEVEL:   info
+      VAULT_LOG_FORMAT:  standard
+      VAULT_CONFIG:      eyJhdXRvX2F1dGgiOnsibWV0aG9kIjp7InR5cGUiOiJrdWJlcm5ldGVzIiwibW91bnRfcGF0aCI6ImF1dGgva3ViZXJuZXRlcyIsImNvbmZpZyI6eyJyb2xlIjoidnByb2ZpbGUiLCJ0b2tlbl9wYXRoIjoiL3Zhci9ydW4vc2VjcmV0cy9rdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3Rva2VuIn19LCJzaW5rIjpbeyJ0eXBlIjoiZmlsZSIsImNvbmZpZyI6eyJwYXRoIjoiL2hvbWUvdmF1bHQvLnZhdWx0LXRva2VuIn19XX0sImV4aXRfYWZ0ZXJfYXV0aCI6dHJ1ZSwicGlkX2ZpbGUiOiIvaG9tZS92YXVsdC8ucGlkIiwidmF1bHQiOnsiYWRkcmVzcyI6Imh0dHA6Ly92YXVsdC52YXVsdC5zdmM6ODIwMCJ9LCJ0ZW1wbGF0ZSI6W3siZGVzdGluYXRpb24iOiIvdmF1bHQvc2VjcmV0cy9kYXRhYmFzZS1jb25maWcuc2giLCJjb250ZW50cyI6Int7LSB3aXRoIHNlY3JldCBcImludGVybmFsL2RhdGEvZGF0YWJhc2UvY29uZmlnXCIgLX19XG4gICMhL2Jpbi9zaFxuICBleHBvcnQgTVlTUUxfUk9PVF9QQVNTV09SRD1cInt7IC5EYXRhLmRhdGEucGFzc3dvcmQgfX1cIlxue3stIGVuZCB9fVxuIiwibGVmdF9kZWxpbWl0ZXIiOiJ7eyIsInJpZ2h0X2RlbGltaXRlciI6In19In1dLCJ0ZW1wbGF0ZV9jb25maWciOnsiZXhpdF9vbl9yZXRyeV9mYWlsdXJlIjp0cnVlfX0=
+    Mounts:
+      /home/vault from home-init (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2xppp (ro)
+      /vault/secrets from vault-secrets (rw)
+Containers:
+  vprodb:
+    Container ID:   containerd://b2daac4ff9580decf784dde6aebff5d7d4c3b12f5f9a014a6e206b6afb9a19c0
+    Image:          568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofiledb:latest
+    Image ID:       568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofiledb@sha256:2ffd4b8e49b53f22bdc3833e862f3946f7d394c8b0e8393e656e2a607b569699
+    Port:           3306/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 01 Nov 2023 21:02:14 +0000
+      Finished:     Wed, 01 Nov 2023 21:02:14 +0000
+    Ready:          False
+    Restart Count:  3
+    Environment:
+      MYSQL_ROOT_PASSWORD:  ${MYSQL_ROOT_PASSWORD}
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2xppp (ro)
+      /vault/secrets from vault-secrets (rw)
+  vault-agent:
+    Container ID:  containerd://e5d6bcf08161c17fc3be0ee8c74c891e9915456edca1def26296297ec0f58158
+    Image:         hashicorp/vault:1.15.1
+    Image ID:      docker.io/hashicorp/vault@sha256:6a96634beeda3f989a4d9d85a951fe835fe8504e4dae5b46610f7c4104e8388b
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/sh
+      -ec
+    Args:
+      echo ${VAULT_CONFIG?} | base64 -d > /home/vault/config.json && vault agent -config=/home/vault/config.json
+    State:          Running
+      Started:      Wed, 01 Nov 2023 21:01:29 +0000
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:     250m
+      memory:  64Mi
+    Environment:
+      NAMESPACE:         prod (v1:metadata.namespace)
+      HOST_IP:            (v1:status.hostIP)
+      POD_IP:             (v1:status.podIP)
+      VAULT_LOG_LEVEL:   info
+      VAULT_LOG_FORMAT:  standard
+      VAULT_CONFIG:      eyJhdXRvX2F1dGgiOnsibWV0aG9kIjp7InR5cGUiOiJrdWJlcm5ldGVzIiwibW91bnRfcGF0aCI6ImF1dGgva3ViZXJuZXRlcyIsImNvbmZpZyI6eyJyb2xlIjoidnByb2ZpbGUiLCJ0b2tlbl9wYXRoIjoiL3Zhci9ydW4vc2VjcmV0cy9rdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3Rva2VuIn19LCJzaW5rIjpbeyJ0eXBlIjoiZmlsZSIsImNvbmZpZyI6eyJwYXRoIjoiL2hvbWUvdmF1bHQvLnZhdWx0LXRva2VuIn19XX0sImV4aXRfYWZ0ZXJfYXV0aCI6ZmFsc2UsInBpZF9maWxlIjoiL2hvbWUvdmF1bHQvLnBpZCIsInZhdWx0Ijp7ImFkZHJlc3MiOiJodHRwOi8vdmF1bHQudmF1bHQuc3ZjOjgyMDAifSwidGVtcGxhdGUiOlt7ImRlc3RpbmF0aW9uIjoiL3ZhdWx0L3NlY3JldHMvZGF0YWJhc2UtY29uZmlnLnNoIiwiY29udGVudHMiOiJ7ey0gd2l0aCBzZWNyZXQgXCJpbnRlcm5hbC9kYXRhL2RhdGFiYXNlL2NvbmZpZ1wiIC19fVxuICAjIS9iaW4vc2hcbiAgZXhwb3J0IE1ZU1FMX1JPT1RfUEFTU1dPUkQ9XCJ7eyAuRGF0YS5kYXRhLnBhc3N3b3JkIH19XCJcbnt7LSBlbmQgfX1cbiIsImxlZnRfZGVsaW1pdGVyIjoie3siLCJyaWdodF9kZWxpbWl0ZXIiOiJ9fSJ9XSwidGVtcGxhdGVfY29uZmlnIjp7ImV4aXRfb25fcmV0cnlfZmFpbHVyZSI6dHJ1ZX19
+    Mounts:
+      /home/vault from home-sidecar (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2xppp (ro)
+      /vault/secrets from vault-secrets (rw)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             False
+  ContainersReady   False
+  PodScheduled      True
+Volumes:
+  kube-api-access-2xppp:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+  home-init:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  home-sidecar:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  vault-secrets:
+    Type:        EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:      Memory
+    SizeLimit:   <unset>
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  96s                default-scheduler  Successfully assigned prod/vprodb-7fdcdb67c-f6vzx to i-0100bf753cc12b472
+  Normal   Pulling    94s                kubelet            Pulling image "hashicorp/vault:1.15.1"
+  Normal   Pulled     79s                kubelet            Successfully pulled image "hashicorp/vault:1.15.1" in 1.765311525s (14.958420951s including waiting)
+  Normal   Created    79s                kubelet            Created container vault-agent-init
+  Normal   Started    79s                kubelet            Started container vault-agent-init
+  Normal   Pulled     62s                kubelet            Container image "hashicorp/vault:1.15.1" already present on machine
+  Normal   Pulled     62s                kubelet            Successfully pulled image "568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofiledb:latest" in 11.302926084s (16.025725353s including waiting)
+  Normal   Created    62s                kubelet            Created container vault-agent
+  Normal   Pulled     61s                kubelet            Successfully pulled image "568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofiledb:latest" in 187.368254ms (187.374144ms including waiting)
+  Normal   Started    61s                kubelet            Started container vault-agent
+  Normal   Started    44s (x3 over 62s)  kubelet            Started container vprodb
+  Normal   Created    44s (x3 over 62s)  kubelet            Created container vprodb
+  Normal   Pulled     44s                kubelet            Successfully pulled image "568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofiledb:latest" in 86.481832ms (86.50177ms including waiting)
+  Warning  BackOff    28s (x4 over 60s)  kubelet            Back-off restarting failed container vprodb in pod vprodb-7fdcdb67c-f6vzx_prod(5db217fc-5cfa-4397-ad02-9e99cf405b6d)
+  Normal   Pulling    17s (x4 over 78s)  kubelet            Pulling image "568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofiledb:latest"
+  Normal   Pulled     17s                kubelet            Successfully pulled image "568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofiledb:latest" in 92.493956ms (92.508587ms including waiting)
+
+ubuntu@ip-172-31-37-240:~$ kubectl logs vprodb-7fdcdb67c-f6vzx -c vprodb --previous --tail 10 --namespace prod
+Wed Nov  1 21:02:56 UTC 2023 - Running as user: root
+Wed Nov  1 21:02:56 UTC 2023 - Successfully made /vault/secrets/database-config.sh executable.
+Wed Nov  1 21:02:56 UTC 2023 - Successfully ran /vault/secrets/database-config.sh.
+vprodbpass
+
+ubuntu@ip-172-31-37-240:~$ kubectl logs vpromq01-86b8b565b8-cpkjz -c vpromq01 --previous --tail 10 --namespace prod
+Wed Nov  1 21:04:26 UTC 2023 - Running as user: root
+Wed Nov  1 21:04:26 UTC 2023 - Successfully made /vault/secrets/rmq-config.sh executable.
+Wed Nov  1 21:04:26 UTC 2023 - Successfully ran /vault/secrets/rmq-config.sh.
+guest
+guest
