@@ -24,10 +24,10 @@ Then look for the file :
 
 ## Setup kops
 export KOPS_STATE_STORE=s3://vprofile-kops-state-wrc
-kops create secret --name mycluster.k8s.local sshpublickey admin -i ~/.ssh/id_rsa.pub
-kops create cluster --name=wrccluster.k8s.local --state=s3://vprofile-kops-state-wrc --zones=ap-southeast-1a,ap-southeast-1b --node-count=2 --node-size=t3.small --master-size=t3.medium --node-volume-size=8 --master-volume-size=10  --ssh-access 172.31.37.240/32 --yes
-kops update cluster --name wrccluster.k8s.local --yes
+kops create cluster --name=wrccluster.k8s.local --state=s3://vprofile-kops-state-wrc --zones=ap-southeast-1a,ap-southeast-1b --node-count=2 --node-size=t3.small --master-size=t3.medium --node-volume-size=8 --master-volume-size=10 --yes
+kops update cluster --name wrccluster.k8s.local --yes --admin
 kops validate cluster --wait 10m --state=s3://vprofile-kops-state-wrc
+kops create secret --name wrccluster.k8s.local sshpublickey admin -i ~/.ssh/id_rsa.pub
 
 ## Setup Vault
 kubectl create namespace vault
@@ -58,7 +58,7 @@ bound_service_account_namespaces=prod \
 policies=vprofile \
 ttl=24h
 
-kubectl create serviceaccount vprosa --namespace prod
+<!-- kubectl create serviceaccount vprosa --namespace prod -->
 
 ## Setup Nginx Ingress Controller
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/aws/deploy.yaml

@@ -23,13 +23,13 @@ spec:
         app: vprodb
     spec:
       serviceAccountName: vprosa
+      initContainers:
+        - name: init
+          image: alpine
+          command: ["/bin/sh", "-c", "chmod +x /vault/secrets/database-config"]
       containers:
       - name: vprodb
-        image: vprofile/vprofiledb
-        command:
-          ['sh', '-c']
-        args:
-          ['. ./vault/secrets/database-config']
+        image: {{.Values.dbimage}}
         ports:
         - name: vprodb-port
           containerPort: 3306
