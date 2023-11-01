@@ -31,3 +31,8 @@ spec:
         ports:
         - name: vpromq01-port
           containerPort: 15672
+        env:
+        - name: RABBITMQ_DEFAULT_PASS
+          value: ${RABBITMQ_DEFAULT_PASS}
+        - name: RABBITMQ_DEFAULT_USER
+          value: ${RABBITMQ_DEFAULT_USER}
