@@ -30,3 +30,4 @@ spec:
         ports:
         - name: vprodb-port
           containerPort: 3306
+    restartPolicy: Never
