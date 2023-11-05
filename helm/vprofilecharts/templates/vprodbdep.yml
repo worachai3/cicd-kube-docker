@@ -30,7 +30,7 @@ spec:
         ports:
         - name: vprodb-port
           containerPort: 3306
-      - command:
+        command:
         - tail
         - "-f"
         - /dev/null
