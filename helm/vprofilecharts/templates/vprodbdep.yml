@@ -30,6 +30,7 @@ spec:
         ports:
         - name: vprodb-port
           containerPort: 3306
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: ${MYSQL_ROOT_PASSWORD}
+      - command:
+        - tail
+        - "-f"
+        - /dev/null
