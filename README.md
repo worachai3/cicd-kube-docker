@@ -68,3 +68,6 @@ helm delete vprofile-stack --namespace prod
 helm delete vault --namespace vault
 kops delete cluster --name=wrccluster.k8s.local --state=s3://vprofile-kops-state-wrc --yes
 kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/aws/deploy.yaml
+
+## Note
+- When we are using custom entrypoint.sh file, we have to run default /usr/local/bin/docker-entrypoint.sh file after our custom entrypoint.sh file
