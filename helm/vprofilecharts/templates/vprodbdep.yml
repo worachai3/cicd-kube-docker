@@ -30,7 +30,7 @@ spec:
         ports:
         - name: vprodb-port
           containerPort: {{ .Values.DB.Port }}
-        command:
-        - tail
-        - "-f"
-        - /dev/null # this keeps the container running
+        # command:
+        # - tail
+        # - "-f"
+        # - /dev/null # this keeps the container running
