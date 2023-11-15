@@ -27,11 +27,11 @@ spec:
       serviceAccountName: vprosa
       containers:
       - name: vpromq01
-        image: {{.Values.rmqimage}}
+        image: {{ .Values.Global.Repository }}/{{ .Values.RMQ.Image }}:{{ .Values.RMQ.Tag }}
         ports:
         - name: vpromq01-port
-          containerPort: 15672
-        command:
-        - tail
-        - "-f"
-        - /dev/null
+          containerPort: {{ .Values.RMQ.Port }}
+        # command:
+        # - tail
+        # - "-f"
+        # - /dev/null # this keeps the container running

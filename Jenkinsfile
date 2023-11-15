@@ -18,9 +18,9 @@ pipeline{
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
         registryCredential = 'ecr:ap-southeast-1:awscreds'
-        appRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofileapp'
-        dbRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofiledb'
-        rmqRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofilermq'
+        // appRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofileapp'
+        // dbRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofiledb'
+        // rmqRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofilermq'
         vprofileRegistry = 'https://568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/'
     }
 
@@ -105,7 +105,7 @@ pipeline{
         stage('Kubernetes Deploy'){
             agent {label 'KOPS'}
                 steps {
-                    sh "helm upgrade --install --force vprofile-stack helm/vprofilecharts --set appimage=${appRegistry}:${BUILD_NUMBER} --set dbimage=${dbRegistry}:latest --set rmqimage=${rmqRegistry}:latest --namespace prod"
+                    sh "helm upgrade --install --force vprofile-stack helm/vprofilecharts"
                 }
         }
     }

@@ -26,11 +26,11 @@ spec:
       serviceAccountName: vprosa
       containers:
       - name: vprodb
-        image: {{.Values.dbimage}}
+        image: {{ .Values.Global.Repository }}/{{ .Values.DB.Image }}:{{ .Vaules.DB.Tag }}
         ports:
         - name: vprodb-port
-          containerPort: 3306
-        command:
-        - tail
-        - "-f"
-        - /dev/null
+          containerPort: {{.Values.DB.Port}}
+        # command:
+        # - tail
+        # - "-f"
+        # - /dev/null # this keeps the container running
