@@ -20,6 +20,10 @@ spec:
         ports:
         - name: vproapp-port
           containerPort: {{ .Values.App.Port }}
+        envFrom:
+          - configMapRef:
+            name: my-configmap
+
       initContainers:
       - name: init-mydb
         image: busybox

@@ -18,3 +18,7 @@ RMQ:
   Tag: latest
   Port: 15672
   Replicas: 1
+
+configMapData:
+  foo: bar
+  hello: world

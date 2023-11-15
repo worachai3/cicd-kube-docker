@@ -29,8 +29,4 @@ spec:
         image: "{{ .Values.Global.Repository }}/{{ .Values.DB.Image }}:{{ .Values.DB.Tag }}"
         ports:
         - name: vprodb-port
-          containerPort: {{ .Values.DB.Port }}
-        command:
-        - tail
-        - "-f"
-        - /dev/null # this keeps the container running
+            containerPort: {{ .Values.DB.Port }}
