@@ -22,7 +22,7 @@ spec:
           containerPort: {{ .Values.App.Port }}
         envFrom:
           - configMapRef:
-            name: my-configmap
+              name: my-configmap
 
       initContainers:
       - name: init-mydb
