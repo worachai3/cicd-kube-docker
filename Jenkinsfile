@@ -18,9 +18,7 @@ pipeline{
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
         registryCredential = 'ecr:ap-southeast-1:awscreds'
-        // appRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofileapp'
-        // dbRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofiledb'
-        // rmqRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofilermq'
+        appRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofileapp'
         vprofileRegistry = 'https://568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/'
     }
 
