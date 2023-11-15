@@ -29,4 +29,4 @@ spec:
         image: "{{ .Values.Global.Repository }}/{{ .Values.DB.Image }}:{{ .Values.DB.Tag }}"
         ports:
         - name: vprodb-port
-            containerPort: {{ .Values.DB.Port }}
+          containerPort: {{ .Values.DB.Port }}
