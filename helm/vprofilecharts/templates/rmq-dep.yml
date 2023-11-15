@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: vpromq01
-  replicas: 1
+  replicas: {{ .Values.RMQ.Replicas }}
   template:
     metadata:
       annotations:
@@ -27,7 +27,7 @@ spec:
       serviceAccountName: vprosa
       containers:
       - name: vpromq01
-        image: {{ .Values.Global.Repository }}/{{ .Values.RMQ.Image }}:{{ .Values.RMQ.Tag }}
+        image: "{{ .Values.Global.Repository }}/{{ .Values.RMQ.Image }}:{{ .Values.RMQ.Tag }}"
         ports:
         - name: vpromq01-port
           containerPort: {{ .Values.RMQ.Port }}

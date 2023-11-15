@@ -10,13 +10,16 @@ App:
   Image: vprofileapp
   Tag: latest
   Port: 8080
+  Replicas: 1
 
 DB:
   Image: vprofiledb
   Tag: latest
   Port: 3306
+  Replicas: 1
 
 RMQ:
   Image: vprofilermq
   Tag: latest
   Port: 15672
+  Replicas: 1

@@ -5,7 +5,7 @@ metadata:
   labels: 
     app: vproapp
 spec:
-  replicas: 1
+  replicas: {{ .Values.App.Replicas }}
   selector:
     matchLabels:
       app: vproapp
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: vproapp
-        image: {{ .Values.Global.Repository }}/{{ .Values.App.Image }}:{{ .Values.App.Tag }}
+        image: "{{ .Values.Global.Repository }}/{{ .Values.App.Image }}:{{ .Values.App.Tag }}"
         ports:
         - name: vproapp-port
           containerPort: {{ .Values.App.Port }}

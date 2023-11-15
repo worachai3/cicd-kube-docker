@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: vprodb
-  replicas: 1
+  replicas: {{ .Values.DB.Replicas }}
   template: 
     metadata:
       annotations:
@@ -26,7 +26,7 @@ spec:
       serviceAccountName: vprosa
       containers:
       - name: vprodb
-        image: {{ .Values.Global.Repository }}/{{ .Values.DB.Image }}:{{ .Vaules.DB.Tag }}
+        image: "{{ .Values.Global.Repository }}/{{ .Values.DB.Image }}:{{ .Vaules.DB.Tag }}"
         ports:
         - name: vprodb-port
           containerPort: {{.Values.DB.Port}}

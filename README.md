@@ -42,9 +42,10 @@ $ kubectl exec --stdin=true --tty=true vault-0 -- vault operator unseal # ... Un
 $ kubectl exec --stdin=true --tty=true vault-0 -- vault operator unseal # ... Unseal Key 3
 
 vault login <root_token>
-vault secrets enable -path=secret kv-v2
-vault kv put secret/vprofile-config db.username=<username> db.password=<password>
+vault secrets enable -path=internal kv-v2
+vault kv put internal/vprofile-config db.username=<username> db.password=<password>
 
+vault auth enable kubernetes
 vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 vault policy write vprofile - << EOF
 path "internal/*" {
