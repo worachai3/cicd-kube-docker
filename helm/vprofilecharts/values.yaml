@@ -1,8 +1,3 @@
-# --set appimage=${appRegistry}:${BUILD_NUMBER} --set dbimage=${dbRegistry}:latest --set rmqimage=${rmqRegistry}:latest --namespace prod
-#         appRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofileapp'
-        # dbRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofiledb'
-        # rmqRegistry = '568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers/vprofilermq'
-
 Global:
   Repository: 568406210619.dkr.ecr.ap-southeast-1.amazonaws.com/vprocontainers
 
