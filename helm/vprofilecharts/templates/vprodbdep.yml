@@ -30,7 +30,7 @@ spec:
         - name: vprodb-port
           containerPort: {{ .Values.DB.Port }}
         command: ["/bin/sh", "-c"]
-        args: ["chmod +x /vault/secrets/database-config.sh && source /vault/secrets/database-config.sh && docker-entrypoint.sh mysqld"]
+        args: ["chmod +x /vault/secrets/database-config.sh && source /vault/secrets/database-config.sh && echo sql_password=$MYSQL_ROOT_PASSWORD && docker-entrypoint.sh mysqld"]
         # command:
         # - tail
         # - "-f"
