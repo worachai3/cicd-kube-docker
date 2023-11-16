@@ -14,8 +14,8 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/role: "vprofile"
-        vault.hashicorp.com/agent-inject-secret-rmq-config.yaml: "internal/data/rmq/config"
-        vault.hashicorp.com/agent-inject-template-rmq-config.yaml: |
+        vault.hashicorp.com/agent-inject-secret-rmq-config.sh: "internal/data/rmq/config"
+        vault.hashicorp.com/agent-inject-template-rmq-config.sh: |
           {{`{{- with secret `}}"internal/data/rmq/config"{{` -}}`}}
             RABBITMQ_DEFAULT_PASS="{{`{{ .Data.data.password }}`}}"
             RABBITMQ_DEFAULT_USER="{{`{{ .Data.data.username }}`}}"
