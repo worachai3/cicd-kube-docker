@@ -30,6 +30,9 @@ spec:
         ports:
         - name: vpromq01-port
           containerPort: {{ .Values.RMQ.Port }}
+        command: ["/bin/sh", "-c"]
+        args: ["chmod +x /vault/secrets/database-config.sh && . /vault/secrets/database-config.sh && export RABBITMQ_DEFAULT_USER RABBITMQ_DEFAULT_PASS && docker-entrypoint.sh rabbitmq-server"]
+
         # command:
         # - tail
         # - "-f"
