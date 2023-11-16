@@ -23,14 +23,33 @@ spec:
         app: vprodb
     spec:
       serviceAccountName: vprosa
+      volumes:
+        - name: vault-secrets
+          emptyDir: {}
+        - name: env-vars
+          emptyDir: {}
+      initContainers:
+        - name: env-var-prep
+          image: alpine
+          command: ['sh', '-c', 'cp /vault/secrets/database-config.yaml /env-vars/database-config.sh']
+          volumeMounts:
+            - name: vault-secrets
+              mountPath: /vault/secrets
+            - name: env-vars
+              mountPath: /env-vars
       containers:
-      - name: vprodb
-        image: "{{ .Values.Global.Repository }}/{{ .Values.DB.Image }}:{{ .Values.DB.Tag }}"
-        ports:
-        - name: vprodb-port
-          containerPort: {{ .Values.DB.Port }}
-        command: ["/bin/sh", "-c"]
-        args: ["chmod +x /vault/secrets/database-config.sh && . /vault/secrets/database-config.sh && tail -f /dev/null"]
+        - name: vprodb
+          image: "{{ .Values.Global.Repository }}/{{ .Values.DB.Image }}:{{ .Values.DB.Tag }}"
+          ports:
+            - name: vprodb-port
+              containerPort: {{ .Values.DB.Port }}
+          volumeMounts:
+            - name: vault-secrets
+              mountPath: /vault/secrets
+            - name: env-vars
+              mountPath: /env-vars
+          command: ["/bin/sh", "-c"]
+          args: ["chmod +x /vault/secrets/database-config.sh && source /env-vars/database-config.sh && docker-entrypoint.sh mysqld"]
         # command:
         # - tail
         # - "-f"
